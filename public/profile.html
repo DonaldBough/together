@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="white">
+  <!--  <meta name="title" content="Tunes Viewer">-->
+  <!--  <meta name="description" content="The best way to experience all art, music, and other creations associated with a tune">-->
+  <!--  <meta name="og:title" content="Tunes Viewer">-->
+  <!--  <meta name="og:description" content="The best way to experience all art, music, and other creations associated with a tune">-->
+  <!--  <meta name="og:url" content="https://tunes-viewer.web.app">-->
+  <!--  <meta name="og:image" content="/img/tunes-logo.png">-->
+  <!--  <meta property="og:type" content="website">-->
+  <!--  <meta name="twitter:title" content="Tunes Viewer">-->
+  <!--  <meta name="twitter:description" content="The best way to experience all art, music, and other creations associated with a tune">-->
+  <!--  <meta name="twitter:card" content="summary_large_image">-->
+  <!--  <meta name="twitter:site" content="@DonaldBough">-->
+  <!--  <meta name="twitter:image" content="/img/tunes-logo.png">-->
+  <!--  <meta name="twitter:image:alt" content="TUNES">-->
+  <!--  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">-->
+
+  <title>Relationship App</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+  <!-- Font awesome icons -->
+  <script src="https://kit.fontawesome.com/56c3afa462.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="style/main.css" type="text/css"/>
+</head>
+
+<body>
+<nav class="navbar fixed-top navbar-light bg-white py-0 px-0" style="border-bottom: lightgray 1px solid; font-size: 18px;">
+  <div class="row w-100 text-center justify-content-center pt-2 mt-0 bg-white px-0 mx-0">
+    <div id="todayNavButton" class="col-6 text-secondary">
+      <i class="fas fa-home" style="font-size: 18px;"></i>
+      <div style="font-size: 12px;">Today</div>
+    </div>
+    <!--    <div class="col-3 text-secondary">-->
+    <!--      <i class="fas fa-book" style="font-size: 18px;"></i>-->
+    <!--      <div style="font-size: 12px;">Journal</div>-->
+    <!--    </div>-->
+    <!--    <div class="col-3 text-secondary">-->
+    <!--      <i class="fas fa-search" style="font-size: 18px;"></i>-->
+    <!--      <div style="font-size: 12px;">Entries</div>-->
+    <!--    </div>-->
+    <div id="profileNavButton" class="col-6" style="border-bottom: black 2px solid;">
+      <i class="far fa-user" style="font-size: 18px;"></i>
+      <div style="font-size: 12px;">Profile</div>
+    </div>
+  </div>
+</nav>
+
+<span id="loadingSpinner" class="spinner-border text-warning mx-auto" role="status" style="display: block; margin-top: 7rem;">
+  <span class="sr-only">Loading...</span>
+</span>
+
+<div id="container" class="container-fluid" style="height: 100%; display: none;">
+  <div class="row" style="margin-top: 6rem;">
+    <div class="col">
+      <button id="signOut" class="btn btn-lg btn-block btn-secondary">
+        Sign Out
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- update the version number as needed -->
+<script defer src="/__/firebase/8.8.1/firebase-app.js"></script>
+<!-- include only the Firebase features as you need -->
+<script defer src="/__/firebase/8.8.1/firebase-auth.js"></script>
+<script defer src="/__/firebase/8.8.1/firebase-database.js"></script>
+<!-- initialize the SDK after all desired features are loaded -->
+<script defer src="/__/firebase/init.js"></script>
+
+
+<script type="module">
+  import Logger from "./src/logger.js";
+  import Pages from "./src/pages.js";
+  import Helper from "./src/helper.js";
+  import Navbar from "./src/navbar.js";
+
+  try {
+    firebase.auth().onAuthStateChanged(currentUser => {
+      if (!currentUser) { window.location.href = Pages.SIGN_IN.uri }
+
+      document.getElementById('loadingSpinner').style.display = 'none';
+      document.getElementById('container').style.display = 'block';
+    });
+
+    Navbar.init();
+    _listenForButtonClicks();
+  }
+  catch (e) {
+    Logger.error(e);
+    Logger.showErrorMessage(e);
+  }
+
+  function _listenForButtonClicks() {
+    document.getElementById('signOut').addEventListener('click', async () => {
+      try {
+        Helper.setButtonToLoading('signOut', 'Signing out');
+        await firebase.auth().signOut();
+        window.location.href = Pages.LANDING.uri;
+      }
+      catch (e) {
+        Logger.error(e);
+        Logger.showErrorMessage(e, 'signing out');
+      }
+    });
+  }
+</script>
+
+<!-- Bootstrap js libs -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</body>
+</html>

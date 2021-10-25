@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--  <meta name="title" content="Tunes Viewer">-->
+  <!--  <meta name="description" content="The best way to experience all art, music, and other creations associated with a tune">-->
+  <!--  <meta name="og:title" content="Tunes Viewer">-->
+  <!--  <meta name="og:description" content="The best way to experience all art, music, and other creations associated with a tune">-->
+  <!--  <meta name="og:url" content="https://tunes-viewer.web.app">-->
+  <!--  <meta name="og:image" content="/img/tunes-logo.png">-->
+  <!--  <meta property="og:type" content="website">-->
+  <!--  <meta name="twitter:title" content="Tunes Viewer">-->
+  <!--  <meta name="twitter:description" content="The best way to experience all art, music, and other creations associated with a tune">-->
+  <!--  <meta name="twitter:card" content="summary_large_image">-->
+  <!--  <meta name="twitter:site" content="@DonaldBough">-->
+  <!--  <meta name="twitter:image" content="/img/tunes-logo.png">-->
+  <!--  <meta name="twitter:image:alt" content="TUNES">-->
+  <!--  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">-->
+
+  <title>Relationship App</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+  <!-- Font awesome icons -->
+  <script src="https://kit.fontawesome.com/56c3afa462.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="style/main.css" type="text/css"/>
+</head>
+
+<body>
+
+<span id="loadingAuthStatusSpinner" class="spinner-border text-warning mx-auto mt-5" role="status" style="display: block;">
+  <span class="sr-only">Loading...</span>
+</span>
+
+<div id="container" class="container text-center" style="visibility: hidden;">
+  <div class="row">
+    <div class="col">
+      <h3>Sign up for free ☀️</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <input id="emailInput" class="form-control" type="email" placeholder="YourEmail@gmail.com">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <input id="passwordInput" class="form-control" type="password" placeholder="">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <p>
+        *This app is not a replacement for a licensed therapist or professional help. If you are experiencing abuse,
+        stop and call or text a domestic abuse hotline in your area.
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <button id="signInUpButton" class="btn btn-primary btn-lg btn-block">Create account</button>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 4rem;">
+    <div class="col">
+      <h5>Already have an account?</h5>
+      <a href="sign-in.html" class="btn btn-outline-primary btn-lg btn-block mt-3">Login Here</a>
+    </div>
+  </div>
+</div>
+
+<!-- update the version number as needed -->
+<script defer src="/__/firebase/8.8.1/firebase-app.js"></script>
+<!-- include only the Firebase features as you need -->
+<script defer src="/__/firebase/8.8.1/firebase-auth.js"></script>
+<script defer src="/__/firebase/8.8.1/firebase-database.js"></script>
+<!-- initialize the SDK after all desired features are loaded -->
+<script defer src="/__/firebase/init.js"></script>
+
+
+<script type="module">
+  import Logger from "./src/logger.js";
+  import SignIn from "./src/signin.js";
+
+  try {
+    const signIn = new SignIn(true);
+    signIn.init();
+  }
+  catch (e) {
+    Logger.error(e);
+    Logger.showErrorMessage(e);
+  }
+</script>
+
+<!-- Bootstrap js libs -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</body>
+</html>
